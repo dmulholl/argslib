@@ -21,7 +21,7 @@ def exit_error(msg):
 # Exception raised when an invalid API call is attempted. (Invalid user input
 # does not raise an exception; instead the application exits with an error
 # message.)
-class ArgParserError(Exception):
+class Error(Exception):
     pass
 
 
@@ -193,7 +193,7 @@ class ArgParser:
         if option:
             return option.found
         else:
-            raise ArgParserError("'%s' is not a registered option" % name)
+            raise Error("'%s' is not a registered option" % name)
 
     # Returns the value of the specified option.
     def get(self, name):
@@ -201,7 +201,7 @@ class ArgParser:
         if option:
             return option.value
         else:
-            raise ArgParserError("'%s' is not a registered option" % name)
+            raise Error("'%s' is not a registered option" % name)
 
     # Returns the specified option's list of values.
     def get_list(self, name):
@@ -209,7 +209,7 @@ class ArgParser:
         if option:
             return option.values
         else:
-            raise ArgParserError("'%s' is not a registered option" % name)
+            raise Error("'%s' is not a registered option" % name)
 
     # Returns the length of the specified option's list of values.
     def len_list(self, name):
@@ -217,7 +217,7 @@ class ArgParser:
         if option:
             return len(option.values)
         else:
-            raise ArgParserError("'%s' is not a registered option" % name)
+            raise Error("'%s' is not a registered option" % name)
 
     # ----------------------------------------------------------------------
     # Commands.
