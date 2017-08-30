@@ -122,7 +122,7 @@ Register a flag (a boolean option) with a default value of <code>False</code>. F
 </dt>
 <dd>
 <p>
-Register a floating-point option, optionally specifying a default value.
+Register a floating-point option, optionally specifying a fallback value.
 </p>
 </dd>
 <dt>
@@ -130,7 +130,7 @@ Register a floating-point option, optionally specifying a default value.
 </dt>
 <dd>
 <p>
-Register an integer option, optionally specifying a default value.
+Register an integer option, optionally specifying a fallback value.
 </p>
 </dd>
 <dt>
@@ -138,7 +138,7 @@ Register an integer option, optionally specifying a default value.
 </dt>
 <dd>
 <p>
-Register a string option, optionally specifying a default value.
+Register a string option, optionally specifying a fallback value.
 </p>
 </dd>
 </dl>
@@ -195,7 +195,7 @@ An option's value can also be retrieved using read-only dictionary syntax:
 Retrieve Positional Arguments
 </h2>
 <p>
-The methods below provide access to positional arguments identified by the parser.
+Options can be preceded, followed, or interspaced with positional arguments.
 </p>
 <dl>
 <dt>
@@ -257,7 +257,7 @@ Janus supports git-style command interfaces with arbitrarily-nested commands. Re
 <span class="n">cmd_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">new_cmd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">helptext</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
 </pre>
 <p>
-This method returns a new <code>ArgParser</code> instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call <code>parse()</code> on a command parser - if a command is found, its arguments are parsed automatically.)
+This method returns a new <code>ArgParser</code> instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call <code>parse()</code> on a command parser &mdash; if a command is found, its arguments are parsed automatically.)
 </p>
 <ul>
 <li>
@@ -285,7 +285,7 @@ The following <code>ArgParser</code> methods are also available for processing c
 </dt>
 <dd>
 <p>
-Returns the command name, if the parser has found a command.
+Returns the command name, if the parser has found a command; otherwise returns <code>None</code>.
 </p>
 </dd>
 <dt>
@@ -293,7 +293,7 @@ Returns the command name, if the parser has found a command.
 </dt>
 <dd>
 <p>
-Returns the command's parser instance, if the parser has found a command.
+Returns the command parser instance, if the parser has found a command; otherwise returns <code>None</code>.
 </p>
 </dd>
 <dt>

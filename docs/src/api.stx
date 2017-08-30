@@ -58,17 +58,17 @@ Option values can be separated on the command line by either a space, `--foo 123
 
 ||  `.new_float(name, fallback=None)`  ||
 
-    Register a floating-point option, optionally specifying a default value.
+    Register a floating-point option, optionally specifying a fallback value.
 
 
 ||  `.new_int(name, fallback=None)`  ||
 
-    Register an integer option, optionally specifying a default value.
+    Register an integer option, optionally specifying a fallback value.
 
 
 ||  `.new_str(name, fallback=None)`  ||
 
-    Register a string option, optionally specifying a default value.
+    Register a string option, optionally specifying a fallback value.
 
 
 
@@ -110,7 +110,7 @@ An option's value can also be retrieved using read-only dictionary syntax:
 ## Retrieve Positional Arguments
 
 
-The methods below provide access to positional arguments identified by the parser.
+Options can be preceded, followed, or interspaced with positional arguments.
 
 
 ||  `.get_args()`  ||
@@ -156,7 +156,7 @@ Janus supports git-style command interfaces with arbitrarily-nested commands. Re
 
     cmd_parser = parser.new_cmd(name, helptext, callback)
 
-This method returns a new `ArgParser` instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call `parse()` on a command parser - if a command is found, its arguments are parsed automatically.)
+This method returns a new `ArgParser` instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call `parse()` on a command parser --- if a command is found, its arguments are parsed automatically.)
 
 * Like options, commands can have an unlimited number of aliases specified via the `name` string.
 
@@ -169,12 +169,12 @@ The following `ArgParser` methods are also available for processing commands man
 
 ||  `.get_cmd_name()`  ||
 
-    Returns the command name, if the parser has found a command.
+    Returns the command name, if the parser has found a command; otherwise returns `None`.
 
 
 ||  `.get_cmd_parser()`  ||
 
-    Returns the command's parser instance, if the parser has found a command.
+    Returns the command parser instance, if the parser has found a command; otherwise returns `None`.
 
 
 ||  `.get_parent()`  ||
