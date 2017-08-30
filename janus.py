@@ -10,7 +10,7 @@ import sys
 
 
 # Library version number.
-__version__ = "0.2.0"
+__version__ = "1.0.0"
 
 
 # Print a message to stderr and exit with a non-zero error code.
