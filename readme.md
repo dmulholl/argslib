@@ -1,6 +1,8 @@
 # Janus
 
-Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces. Features include:
+Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces.
+
+Features:
 
 * Long-form boolean flags with single-character shortcuts: `--flag`, `-f`.
 
