@@ -1,6 +1,6 @@
 # Janus
 
-Janus is an argument-parsing library for Python designed for building elegant command-line interfaces. Its features include:
+Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces.
 
 * Long-form boolean flags with single-character shortcuts: `--flag`, `-f`.
 
