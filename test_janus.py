@@ -112,6 +112,20 @@ def test_string_option_shortform():
     assert parser.get("string") == "value"
 
 
+def test_string_option_longform_equals():
+    parser = janus.ArgParser()
+    parser.new_str("string", fallback="default")
+    parser.parse(["--string=value"])
+    assert parser.get("string") == "value"
+
+
+def test_string_option_shortform_equals():
+    parser = janus.ArgParser()
+    parser.new_str("string s", fallback="default")
+    parser.parse(["-s=value"])
+    assert parser.get("string") == "value"
+
+
 def test_string_option_dict_syntax():
     parser = janus.ArgParser()
     parser.new_str("string", fallback="default")
@@ -195,6 +209,20 @@ def test_int_option_shortform():
     parser = janus.ArgParser()
     parser.new_int("int i", fallback=101)
     parser.parse(["-i", "202"])
+    assert parser.get("int") == 202
+
+
+def test_int_option_longform_equals():
+    parser = janus.ArgParser()
+    parser.new_int("int", fallback=101)
+    parser.parse(["--int=202"])
+    assert parser.get("int") == 202
+
+
+def test_int_option_shortform_equals():
+    parser = janus.ArgParser()
+    parser.new_int("int i", fallback=101)
+    parser.parse(["-i=202"])
     assert parser.get("int") == 202
 
 
@@ -295,6 +323,20 @@ def test_float_option_shortform():
     parser = janus.ArgParser()
     parser.new_float("float f", fallback=1.1)
     parser.parse(["-f", "2.2"])
+    assert parser.get("float") == 2.2
+
+
+def test_float_option_longform_equals():
+    parser = janus.ArgParser()
+    parser.new_float("float", fallback=1.1)
+    parser.parse(["--float=2.2"])
+    assert parser.get("float") == 2.2
+
+
+def test_float_option_shortform_equals():
+    parser = janus.ArgParser()
+    parser.new_float("float f", fallback=1.1)
+    parser.parse(["-f=2.2"])
     assert parser.get("float") == 2.2
 
 
