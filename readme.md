@@ -2,7 +2,8 @@
 
 Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces.
 
-Features include:
+
+Features:
 
 * Long-form boolean flags with single-character shortcuts: `--flag`, `-f`.
 
@@ -17,6 +18,13 @@ Features include:
 
 * Support for git-style command interfaces with arbitrarily-nested commands.
 
-See the [documentation][docs] for details.
+
+Links:
+
+* [Documentation](docs)
+
+* [Sample Application](sample)
+
 
 [docs]: http://mulholland.xyz/docs/janus/
+[sample]: https://github.com/dmulholland/janus/blob/master/example
