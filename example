@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-# --------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # A simple application demonstrating Janus in action.
-# --------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-import sys
 import janus
 
 
@@ -11,12 +10,12 @@ import janus
 def main():
 
     # We instantiate an argument parser, optionally supplying help text and a
-    # version string. Supplying help text activates the automatic --help flag,
-    # supplying a version string activates the automatic --version flag.
+    # version string. Supplying help text activates an automatic --help flag,
+    # supplying a version string activates an automatic --version flag.
     parser = janus.ArgParser("Help!", "Version 1.2.3")
 
     # Register a flag, --bool, with a single-character alias, -b. A flag is a
-    # boolean option - it is either present (true) or absent (false).
+    # boolean option --- it's either present (true) or absent (false).
     parser.new_flag("bool b")
 
     # Register a string option, --string <arg>, with a single-character alias,
@@ -44,7 +43,7 @@ def main():
 
     # Once all our options and commands have been registered we can call the
     # parser's parse() method with a list of argument strings. Only the root
-    # parser's parse() method should be called - command arguments will be
+    # parser's parse() method should be called --- command arguments will be
     # parsed automatically. The parse() method defaults to parsing the
     # application's command line arguments if no list is supplied.
     parser.parse()
