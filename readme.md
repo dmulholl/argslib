@@ -3,7 +3,7 @@
 Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces.
 
 
-Features:
+### Features
 
 * Long-form boolean flags with single-character shortcuts: `--flag`, `-f`.
 
@@ -19,7 +19,7 @@ Features:
 * Support for git-style command interfaces with arbitrarily-nested commands.
 
 
-Links:
+### Links
 
 * [Documentation](docs)
 
