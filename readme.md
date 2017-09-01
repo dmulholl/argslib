@@ -22,7 +22,6 @@ Janus is a minimalist argument-parsing library designed for building elegant com
 #### Links
 
 * [Documentation](docs)
-
 * [Sample Application](sample)
 
 
