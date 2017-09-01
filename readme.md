@@ -21,9 +21,9 @@ Janus is a minimalist argument-parsing library designed for building elegant com
 
 #### Links
 
-* [Documentation](docs)
+* [Documentation][docs]
 * [Sample Application][sample]
 
 
-[docs]: http://mulholland.xyz/docs/janus/
+[docs]: https://mulholland.xyz/docs/janus/
 [sample]: https://github.com/dmulholland/janus/blob/master/example
