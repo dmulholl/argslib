@@ -10,7 +10,7 @@ import sys
 
 
 # Library version number.
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 # Print a message to stderr and exit with a non-zero error code.
@@ -121,8 +121,8 @@ class ArgParser:
 
         lines.append("Options:")
         if self.options:
-            for name, option in sorted(self.options.items()):
-                lines.append("  %s: %s" % (name, option.values))
+            for name, opt in sorted(self.options.items()):
+                lines.append("  %s: (%r) %s" % (name, opt.fallback, opt.values))
         else:
             lines.append("  [none]")
 
