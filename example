@@ -12,7 +12,7 @@ def main():
     # We instantiate an argument parser, optionally supplying help text and a
     # version string. Supplying help text activates an automatic --help flag,
     # supplying a version string activates an automatic --version flag.
-    parser = janus.ArgParser("Help!", "Version 1.2.3")
+    parser = janus.ArgParser("App Help", "Version 1.2.3")
 
     # Register a flag, --bool, with a single-character alias, -b. A flag is a
     # boolean option --- it's either present (true) or absent (false).
@@ -32,7 +32,7 @@ def main():
 
     # Register a command 'foo', with an alias 'bar'. We need to supply the
     # command's help text and callback function.
-    cmd_parser = parser.new_cmd("foo bar", "Command Help!", callback)
+    cmd_parser = parser.new_cmd("foo bar", "Command Help", callback)
 
     # Registering a command returns a new ArgParser instance dedicated to
     # parsing the command's arguments. We can register as many flags and
