@@ -10,7 +10,7 @@ import sys
 
 
 # Library version number.
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 
 # Print a message to stderr and exit with a non-zero error code.
@@ -85,10 +85,10 @@ class ArgParser:
     def __init__(self, helptext=None, version=None):
 
         # Help text for the application or command.
-        self.helptext = helptext.strip() if helptext else None
+        self.helptext = helptext
 
-        # Application version number as a string.
-        self.version = version.strip() if version else None
+        # Application version.
+        self.version = version
 
         # Stores registered Option instances indexed by name.
         self.options = {}
@@ -143,12 +143,14 @@ class ArgParser:
 
     # Print the parser's help text and exit.
     def exit_help(self):
-        sys.stdout.write(self.helptext + "\n")
+        helptext = self.helptext.strip() if self.helptext else ""
+        sys.stdout.write(helptext + "\n")
         sys.exit()
 
     # Print the parser's version string and exit.
     def exit_version(self):
-        sys.stdout.write(self.version + "\n")
+        version = self.version.strip() if self.version else ""
+        sys.stdout.write(version + "\n")
         sys.exit()
 
     # ----------------------------------------------------------------------
