@@ -25,5 +25,5 @@ Janus is a Python library for parsing command line arguments.
 * [Sample Application][sample]
 
 
-[docs]: https://darrenmulholland.com/docs/janus/
+[docs]: https://darrenmulholland.com/docs/janus-python/
 [sample]: https://github.com/dmulholland/janus/blob/master/example
