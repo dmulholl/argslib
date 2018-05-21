@@ -1,6 +1,6 @@
-# Janus for Python
+# Janus
 
-Janus is a Python library for parsing command line arguments.
+A Python library for parsing command line arguments.
 
 
 #### Features
