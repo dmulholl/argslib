@@ -4,4 +4,4 @@
 
 title = "Janus"
 
-tagline = "A minimalist argument-parsing library for Python."
+tagline = "An argument-parsing library for Python."

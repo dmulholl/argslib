@@ -42,7 +42,7 @@ Janus requires Python 3.0 or later.
 
 * [Github Homepage](https://github.com/dmulholland/janus)
 * [Sample Application](https://github.com/dmulholland/janus/blob/master/example)
-* [Online Documentation](https://darrenmulholland.com/docs/janus/)
+* [Online Documentation](https://darrenmulholland.com/docs/janus-python/)
 
 
 
