@@ -1,16 +1,16 @@
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Janus: a minimalist argument-parsing library designed for building elegant
 # command line interfaces.
 #
 # Author: Darren Mulholland <darren@mulholland.xyz>
 # License: Public Domain
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 import sys
 
 
 # Library version number.
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 
 # Print a message to stderr and exit with a non-zero error code.
