@@ -13,7 +13,7 @@ Import::
 
     >>> import janus
 
-See the project's `documentation <http://mulholland.xyz/docs/janus/>`_
+See the project's `documentation <https://darrenmulholland.com/docs/janus/>`_
 for further details.
 
 """
