@@ -18,6 +18,7 @@
       
         <p class="tagline">An argument-parsing library for Python.</p>
       
+      
       <nav class="menu">
         <input id="menu-check" type="checkbox"/>
         <label id="menu-label" for="menu-check" class="unselectable">
@@ -29,7 +30,7 @@
 <li><a href="index.html">Home</a></li>
 <li><a href="cli.html">CLI</a></li>
 <li><a href="api.html">API</a></li>
-<li><a href="https://github.com/dmulholland/janus">Source</a></li>
+<li><a href="https://github.com/dmulholl/janus-python">Source</a></li>
 </ul>
       </nav>
     </header>
@@ -83,7 +84,7 @@ Basic Usage
 Initialize an argument parser, optionally specifying the application's help text and version as string arguments:
 </p>
 <pre class="lang-python pygments" data-lang="python">
-<span class="n">parser</span> <span class="o">=</span> <span class="n">janus</span><span class="o">.</span><span class="n">ArgParser</span><span class="p">(</span><span class="n">helptext</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">janus</span><span class="o">.</span><span class="n">ArgParser</span><span class="p">(</span><span class="n">helptext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre>
 <p>
 Supplying help text activates an automatic <code>--help</code> flag; supplying a version string activates an automatic <code>--version</code> flag. (Automatic <code>-h</code> and <code>-v</code> shortcuts are also activated unless registered by other options.)
@@ -262,19 +263,13 @@ This method returns a new <code>ArgParser</code> instance associated with the co
 </p>
 <ul>
 <li>
-<p>
 Like options, commands can have an unlimited number of aliases specified via the <code>name</code> string.
-</p>
 </li>
 <li>
-<p>
 Commands support an automatic <code>--help</code> flag and an automatic <code>help &lt;name&gt;</code> command using the specified help text.
-</p>
 </li>
 <li>
-<p>
 The specified callback function will be called if the command is found. The callback should accept the command's <code>ArgParser</code> instance as its sole argument and should have no return value.
-</p>
 </li>
 </ul>
 <p>
