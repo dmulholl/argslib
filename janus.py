@@ -2,7 +2,7 @@
 # Janus: a minimalist argument-parsing library designed for building elegant
 # command line interfaces.
 #
-# Author: Darren Mulholland <darren@mulholland.xyz>
+# Author: Darren Mulholland <dmulholl@tcd.ie>
 # License: Public Domain
 # ------------------------------------------------------------------------------
 

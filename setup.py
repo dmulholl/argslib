@@ -13,7 +13,7 @@ Import::
 
     >>> import janus
 
-See the project's `documentation <https://darrenmulholland.com/docs/janus/>`_
+See the project's `documentation <http://www.dmulholl.com/docs/janus/>`_
 for further details.
 
 """
@@ -36,7 +36,7 @@ setup(
     version = meta['version'],
     py_modules = ['janus'],
     author = 'Darren Mulholland',
-    url = 'https://github.com/dmulholland/janus',
+    url = 'https://github.com/dmulholl/janus',
     license = 'Public Domain',
     description = (
         'A minimalist argument-parsing library.'
