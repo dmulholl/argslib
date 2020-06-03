@@ -5,7 +5,7 @@
     <title>API</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="fonts.css">
-    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="graphite.css">
     <link rel="stylesheet" href="pygments.css">
     
     
@@ -111,6 +111,7 @@ An option can have an unlimited number of long and short-form aliases. Aliases a
 Option values can be separated on the command line by either a space, <code>--foo 123</code>, or an equals symbol, <code>--foo=123</code>.
 </p>
 <dl>
+<div>
 <dt>
 <code>.new_flag(name)</code>
 </dt>
@@ -119,6 +120,8 @@ Option values can be separated on the command line by either a space, <code>--fo
 Register a flag (a boolean option) with a default value of <code>False</code>. Flag options take no arguments but are either present (<code>True</code>) or absent (<code>False</code>).
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.new_float(name, fallback=None)</code>
 </dt>
@@ -127,6 +130,8 @@ Register a flag (a boolean option) with a default value of <code>False</code>. F
 Register a floating-point option, optionally specifying a fallback value.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.new_int(name, fallback=None)</code>
 </dt>
@@ -135,6 +140,8 @@ Register a floating-point option, optionally specifying a fallback value.
 Register an integer option, optionally specifying a fallback value.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.new_str(name, fallback=None)</code>
 </dt>
@@ -143,6 +150,7 @@ Register an integer option, optionally specifying a fallback value.
 Register a string option, optionally specifying a fallback value.
 </p>
 </dd>
+</div>
 </dl>
 <h2 id="retrieve-option-values">
 Retrieve Option Values
@@ -154,6 +162,7 @@ An option's value can be retrieved from the parser instance using any of its reg
 Each option maintains an internal list of values — the value of the option is the final value in the list or the fallback value if the list is empty.
 </p>
 <dl>
+<div>
 <dt>
 <code>.found(name)</code>
 </dt>
@@ -162,6 +171,8 @@ Each option maintains an internal list of values — the value of the option is 
 Returns true if the specified option was found while parsing.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get(name)</code>
 </dt>
@@ -170,6 +181,8 @@ Returns true if the specified option was found while parsing.
 Returns the value of the specified option.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get_list(name)</code>
 </dt>
@@ -178,6 +191,8 @@ Returns the value of the specified option.
 Returns the specified option's list of values.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.len_list(name)</code>
 </dt>
@@ -186,6 +201,7 @@ Returns the specified option's list of values.
 Returns the length of the specified option's list of values.
 </p>
 </dd>
+</div>
 </dl>
 <p>
 An option's value can also be retrieved using read-only dictionary syntax:
@@ -200,6 +216,7 @@ Retrieve Positional Arguments
 Options can be preceded, followed, or interspaced with positional arguments.
 </p>
 <dl>
+<div>
 <dt>
 <code>.get_args()</code>
 </dt>
@@ -208,6 +225,8 @@ Options can be preceded, followed, or interspaced with positional arguments.
 Returns the positional arguments as a list of strings.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get_args_as_floats()</code>
 </dt>
@@ -217,6 +236,8 @@ Attempts to parse and return the positional arguments as a list of floats.
 Exits with an error message on failure.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get_args_as_ints()</code>
 </dt>
@@ -226,6 +247,8 @@ Attempts to parse and return the positional arguments as a list of
 integers. Exits with an error message on failure.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.has_args()</code>
 </dt>
@@ -234,6 +257,8 @@ integers. Exits with an error message on failure.
 Returns true if at least one positional argument has been found.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.num_args()</code>
 </dt>
@@ -242,6 +267,7 @@ Returns true if at least one positional argument has been found.
 Returns the number of positional arguments.
 </p>
 </dd>
+</div>
 </dl>
 <p>
 Positional arguments can also be accessed using read-only list syntax:
@@ -276,6 +302,7 @@ The specified callback function will be called if the command is found. The call
 The following <code>ArgParser</code> methods are also available for processing commands manually:
 </p>
 <dl>
+<div>
 <dt>
 <code>.get_cmd_name()</code>
 </dt>
@@ -284,6 +311,8 @@ The following <code>ArgParser</code> methods are also available for processing c
 Returns the command name, if the parser has found a command; otherwise returns <code>None</code>.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get_cmd_parser()</code>
 </dt>
@@ -292,6 +321,8 @@ Returns the command name, if the parser has found a command; otherwise returns <
 Returns the command parser instance, if the parser has found a command; otherwise returns <code>None</code>.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.get_parent()</code>
 </dt>
@@ -300,6 +331,8 @@ Returns the command parser instance, if the parser has found a command; otherwis
 Returns a command parser's parent parser.
 </p>
 </dd>
+</div>
+<div>
 <dt>
 <code>.has_cmd()</code>
 </dt>
@@ -308,6 +341,7 @@ Returns a command parser's parent parser.
 Returns true if the parser has found a command.
 </p>
 </dd>
+</div>
 </dl>
 
     </article>
