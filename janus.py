@@ -1,16 +1,12 @@
 # ------------------------------------------------------------------------------
-# Janus: a minimalist argument-parsing library designed for building elegant
-# command line interfaces.
-#
-# Author: Darren Mulholland <dmulholl@tcd.ie>
-# License: Public Domain
+# Janus: a minimalist argument-parsing library.
 # ------------------------------------------------------------------------------
 
 import sys
 
 
 # Library version number.
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 
 
 # Print a message to stderr and exit with a non-zero error code.
@@ -18,10 +14,15 @@ def exit_error(msg):
     sys.exit("Error: %s." % msg)
 
 
+# Deprecated exception name. Will be removed in v2.0.
+class Error(Exception):
+    pass
+
+
 # Exception raised when an invalid API call is attempted. (Invalid user input
 # does not raise an exception; instead the application exits with an error
 # message.)
-class Error(Exception):
+class ArgParserError(Error):
     pass
 
 
@@ -189,13 +190,17 @@ class ArgParser:
     # Get option values.
     # ----------------------------------------------------------------------
 
-    # Returns true if the specified option was found while parsing.
-    def found(self, name):
+    # Returns the number of times the specified option has been found.
+    def count(self, name):
         option = self.options.get(name)
         if option:
-            return option.found
+            return len(option.values)
         else:
-            raise Error("'%s' is not a registered option" % name)
+            raise ArgParserError("'%s' is not a registered option" % name)
+
+    # Returns true if the specified option was found while parsing.
+    def found(self, name):
+        return self.count(name) > 0
 
     # Returns the value of the specified option.
     def get(self, name):
@@ -203,7 +208,7 @@ class ArgParser:
         if option:
             return option.value
         else:
-            raise Error("'%s' is not a registered option" % name)
+            raise ArgParserError("'%s' is not a registered option" % name)
 
     # Returns the specified option's list of values.
     def get_list(self, name):
@@ -211,15 +216,11 @@ class ArgParser:
         if option:
             return option.values
         else:
-            raise Error("'%s' is not a registered option" % name)
+            raise ArgParserError("'%s' is not a registered option" % name)
 
-    # Returns the length of the specified option's list of values.
+    # Deprecated. Will be removed in v2.0.
     def len_list(self, name):
-        option = self.options.get(name)
-        if option:
-            return len(option.values)
-        else:
-            raise Error("'%s' is not a registered option" % name)
+        return self.count(name)
 
     # ----------------------------------------------------------------------
     # Commands.

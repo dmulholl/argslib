@@ -55,28 +55,28 @@ def test_bool_list_empty():
     parser = janus.ArgParser()
     parser.new_flag("bool")
     parser.parse([])
-    assert parser.len_list("bool") == 0
+    assert parser.count("bool") == 0
 
 
 def test_bool_list_longform():
     parser = janus.ArgParser()
     parser.new_flag("bool")
     parser.parse(["--bool", "--bool", "--bool"])
-    assert parser.len_list("bool") == 3
+    assert parser.count("bool") == 3
 
 
 def test_bool_list_shortform():
     parser = janus.ArgParser()
     parser.new_flag("bool b")
     parser.parse(["-b", "-bb"])
-    assert parser.len_list("bool") == 3
+    assert parser.count("bool") == 3
 
 
 def test_bool_list_mixed():
     parser = janus.ArgParser()
     parser.new_flag("bool b")
     parser.parse(["--bool", "-bb"])
-    assert parser.len_list("bool") == 3
+    assert parser.count("bool") == 3
 
 
 # ------------------------------------------------------------------------------
@@ -149,14 +149,14 @@ def test_string_list_empty():
     parser = janus.ArgParser()
     parser.new_str("string")
     parser.parse([])
-    assert parser.len_list("string") == 0
+    assert parser.count("string") == 0
 
 
 def test_string_list_longform():
     parser = janus.ArgParser()
     parser.new_str("string")
     parser.parse(["--string", "foo", "bar", "--string", "baz"])
-    assert parser.len_list("string") == 2
+    assert parser.count("string") == 2
     assert parser.get_list("string")[0] == "foo"
     assert parser.get_list("string")[1] == "baz"
 
@@ -165,7 +165,7 @@ def test_string_list_shortform():
     parser = janus.ArgParser()
     parser.new_str("string s")
     parser.parse(["-s", "foo", "bar", "-s", "baz"])
-    assert parser.len_list("string") == 2
+    assert parser.count("string") == 2
     assert parser.get_list("string")[0] == "foo"
     assert parser.get_list("string")[1] == "baz"
 
@@ -174,7 +174,7 @@ def test_string_list_mixed():
     parser = janus.ArgParser()
     parser.new_str("string s")
     parser.parse(["--string", "foo", "bar", "-s", "baz"])
-    assert parser.len_list("string") == 2
+    assert parser.count("string") == 2
     assert parser.get_list("string")[0] == "foo"
     assert parser.get_list("string")[1] == "baz"
 
@@ -263,14 +263,14 @@ def test_int_list_missing():
     parser = janus.ArgParser()
     parser.new_int("int")
     parser.parse([])
-    assert parser.len_list("int") == 0
+    assert parser.count("int") == 0
 
 
 def test_int_list_longform():
     parser = janus.ArgParser()
     parser.new_int("int")
     parser.parse(["--int", "123", "456", "--int", "789"])
-    assert parser.len_list("int") == 2
+    assert parser.count("int") == 2
     assert parser.get_list("int")[0] == 123
     assert parser.get_list("int")[1] == 789
 
@@ -279,7 +279,7 @@ def test_int_list_shortform():
     parser = janus.ArgParser()
     parser.new_int("int i")
     parser.parse(["-i", "123", "456", "-i", "789"])
-    assert parser.len_list("int") == 2
+    assert parser.count("int") == 2
     assert parser.get_list("int")[0] == 123
     assert parser.get_list("int")[1] == 789
 
@@ -288,7 +288,7 @@ def test_int_list_mixed():
     parser = janus.ArgParser()
     parser.new_int("int i")
     parser.parse(["--int", "123", "456", "-i", "789"])
-    assert parser.len_list("int") == 2
+    assert parser.count("int") == 2
     assert parser.get_list("int")[0] == 123
     assert parser.get_list("int")[1] == 789
 
@@ -377,14 +377,14 @@ def test_float_list_missing():
     parser = janus.ArgParser()
     parser.new_float("float")
     parser.parse([])
-    assert parser.len_list("float") == 0
+    assert parser.count("float") == 0
 
 
 def test_float_list_longform():
     parser = janus.ArgParser()
     parser.new_float("float")
     parser.parse(["--float", "1.1", "2.2", "--float", "3.3"])
-    assert parser.len_list("float") == 2
+    assert parser.count("float") == 2
     assert parser.get_list("float")[0] == 1.1
     assert parser.get_list("float")[1] == 3.3
 
@@ -393,7 +393,7 @@ def test_float_list_shortform():
     parser = janus.ArgParser()
     parser.new_float("float f")
     parser.parse(["-f", "1.1", "2.2", "-f", "3.3"])
-    assert parser.len_list("float") == 2
+    assert parser.count("float") == 2
     assert parser.get_list("float")[0] == 1.1
     assert parser.get_list("float")[1] == 3.3
 
@@ -402,7 +402,7 @@ def test_float_list_mixed():
     parser = janus.ArgParser()
     parser.new_float("float f")
     parser.parse(["--float", "1.1", "2.2", "-f", "3.3"])
-    assert parser.len_list("float") == 2
+    assert parser.count("float") == 2
     assert parser.get_list("float")[0] == 1.1
     assert parser.get_list("float")[1] == 3.3
 

@@ -79,6 +79,11 @@ An option's value can be retrieved from the parser instance using any of its reg
 Each option maintains an internal list of values — the value of the option is the final value in the list or the fallback value if the list is empty.
 
 
+[[  `.count(name)`  ]]
+
+    Returns the number of times the specified option was found.
+
+
 [[  `.found(name)`  ]]
 
     Returns true if the specified option was found while parsing.
@@ -92,11 +97,6 @@ Each option maintains an internal list of values — the value of the option is 
 [[  `.get_list(name)`  ]]
 
     Returns the specified option's list of values.
-
-
-[[  `.len_list(name)`  ]]
-
-    Returns the length of the specified option's list of values.
 
 
 An option's value can also be retrieved using read-only dictionary syntax:

@@ -164,6 +164,16 @@ Each option maintains an internal list of values — the value of the option is 
 <dl>
 <div>
 <dt>
+<code>.count(name)</code>
+</dt>
+<dd>
+<p>
+Returns the number of times the specified option was found.
+</p>
+</dd>
+</div>
+<div>
+<dt>
 <code>.found(name)</code>
 </dt>
 <dd>
@@ -189,16 +199,6 @@ Returns the value of the specified option.
 <dd>
 <p>
 Returns the specified option's list of values.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.len_list(name)</code>
-</dt>
-<dd>
-<p>
-Returns the length of the specified option's list of values.
 </p>
 </dd>
 </div>
@@ -343,7 +343,6 @@ Returns true if the parser has found a command.
 </dd>
 </div>
 </dl>
-
     </article>
 
     
