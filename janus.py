@@ -6,7 +6,7 @@ import sys
 
 
 # Library version number.
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 
 # Print a message to stderr and exit with a non-zero error code.
@@ -30,9 +30,8 @@ class ArgParserError(Error):
 # 'string', 'int', or 'float'.
 class Option:
 
-    def __init__(self, typestring):
-        self.type = typestring
-        self.found = False
+    def __init__(self, opt_type):
+        self.type = opt_type
         self.values = []
         self.fallback = None
 
@@ -66,12 +65,10 @@ class ArgStream:
         self.length = len(self.args)
         self.index = 0
 
-    # Returns the next argument from the stream.
     def next(self):
         self.index += 1
         return self.args[self.index - 1]
 
-    # Returns true if the stream contains at least one more element.
     def has_next(self):
         return self.index < self.length
 
@@ -302,43 +299,35 @@ class ArgParser:
 
     # Parse a stream of string arguments.
     def _parse_stream(self, stream):
-        parsing = True
         is_first_arg = True
 
-        # Loop while we have arguments to process.
         while stream.has_next():
-
-            # Fetch the next argument from the stream.
             arg = stream.next()
 
-            # If parsing has been turned off, simply add the argument to the
-            # list of positionals.
-            if not parsing:
-                self.arguments.append(arg)
+            if arg == "--":
+                while stream.has_next():
+                    self.arguments.append(stream.next())
 
-            # If we encounter a '--' argument, turn off option-parsing.
-            elif arg == "--":
-                parsing = False
-
-            # Is the argument a long-form option?
             elif arg.startswith("--"):
-                self._parse_long_opt(arg[2:], stream)
+                if "=" in arg:
+                    self._handle_equals_opt("--", arg[2:])
+                else:
+                    self._handle_long_opt(arg[2:], stream)
 
-            # Is the argument a short-form option?
             elif arg.startswith("-"):
                 if arg == '-' or arg[1].isdigit():
                     self.arguments.append(arg)
+                elif "=" in arg:
+                    self._handle_equals_opt("-", arg[1:])
                 else:
-                    self._parse_short_opt(arg[1:], stream)
+                    self._handle_short_opt(arg[1:], stream)
 
-            # Is the argument a registered command?
             elif is_first_arg and arg in self.commands:
                 self.command = arg
                 cmd_parser = self.commands[arg]
                 cmd_parser._parse_stream(stream)
                 cmd_parser.callback(cmd_parser)
 
-            # Is the argument the automatic 'help' command?
             elif is_first_arg and arg == "help":
                 if stream.has_next():
                     name = stream.next()
@@ -349,14 +338,13 @@ class ArgParser:
                 else:
                     exit_error("the help command requires an argument")
 
-            # Add the argument to our list of positionals.
             else:
                 self.arguments.append(arg)
 
             is_first_arg = False
 
     # Parse an option of the form --name=value or -n=value.
-    def _parse_equals_opt(self, prefix, arg):
+    def _handle_equals_opt(self, prefix, arg):
         name, value = arg.split("=", maxsplit=1)
         option = self.options.get(name)
 
@@ -367,51 +355,27 @@ class ArgParser:
         elif value == "":
             exit_error("missing argument for %s%s" % (prefix, name))
 
-        option.found = True
         option.try_set(value)
 
     # Parse a long-form option, i.e. an option beginning with a double dash.
-    def _parse_long_opt(self, arg, stream):
-
-        # Do we have an option of the form --name=value?
-        if "=" in arg:
-            self._parse_equals_opt("--", arg)
-
-        # Is the argument a registered option name?
-        elif arg in self.options:
+    def _handle_long_opt(self, arg, stream):
+        if arg in self.options:
             option = self.options[arg]
-            option.found = True
             if option.type == "bool":
                 option.values.append(True)
             elif stream.has_next():
                 option.try_set(stream.next())
             else:
                 exit_error("missing argument for --%s" % arg)
-
-        # Is the argument the automatic --help flag?
         elif arg == "help" and self.helptext is not None:
             self.exit_help()
-
-        # Is the argument the automatic --version flag?
         elif arg == "version" and self.version is not None:
             self.exit_version()
-
-        # The argument is not a recognised option name.
         else:
             exit_error("--%s is not a recognised option" % arg)
 
     # Parse a short-form option, i.e. an option beginning with a single dash.
-    def _parse_short_opt(self, arg, stream):
-
-        # Do we have an option of the form -n=value?
-        if "=" in arg:
-            self._parse_equals_opt("-", arg)
-            return
-
-        # We examine each character individually to support condensed options
-        # with trailing arguments: -abc foo bar. If we don't recognise the
-        # character as a registered option name, we check for an automatic
-        # -h or -v flag before exiting.
+    def _handle_short_opt(self, arg, stream):
         for char in arg:
             option = self.options.get(char)
             if option is None:
@@ -422,7 +386,6 @@ class ArgParser:
                 else:
                     exit_error("-%s is not a recognised option" % char)
 
-            option.found = True
             if option.type == "bool":
                 option.values.append(True)
             elif stream.has_next():
