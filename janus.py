@@ -6,7 +6,7 @@ import sys
 
 
 # Library version number.
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 
 # Print a message to stderr and exit with a non-zero error code.
@@ -224,7 +224,7 @@ class ArgParser:
     # ----------------------------------------------------------------------
 
     # Register a command with its associated help text and callback function.
-    def new_cmd(self, name, helptext, callback):
+    def new_cmd(self, name, helptext, callback=None):
         parser = ArgParser(helptext)
         parser.parent = self
         parser.callback = callback
@@ -326,7 +326,8 @@ class ArgParser:
                 self.command = arg
                 cmd_parser = self.commands[arg]
                 cmd_parser._parse_stream(stream)
-                cmd_parser.callback(cmd_parser)
+                if cmd_parser.callback:
+                    cmd_parser.callback(cmd_parser)
 
             elif is_first_arg and arg == "help":
                 if stream.has_next():
