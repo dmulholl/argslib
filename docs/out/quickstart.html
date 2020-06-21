@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Quickstart Tutorial</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets/fonts.css">
+        <link rel="stylesheet" href="assets/graphite.css">
+        <link rel="stylesheet" href="assets/pygments.css">
+        
+        
+    </head>
+    <body class="node-quickstart node">
+        <header class="masthead">
+            <h1><a href="index.html">Argslib</a></h1>
+            
+            <p class="tagline">A ridiculously simple argument-parsing library for Python.</p>
+            
+            
+            <p class="version">Version 2.0.0</p>
+            
+            <nav class="menu">
+                <input id="menu-check" type="checkbox"/>
+                <label id="menu-label" for="menu-check" class="unselectable">
+                    <span class="icon close-icon">✕</span>
+                    <span class="icon open-icon">☰</span>
+                    <span class="text">Menu</span>
+                </label>
+                <ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="quickstart.html">Quickstart</a></li>
+<li><a href="cli.html">CLI</a></li>
+<li><a href="api.html">API</a></li>
+<li><a href="license.html">License</a></li>
+<li><a href="https://github.com/dmulholl/argslib">Github</a></li>
+</ul>
+            </nav>
+        </header>
+        <article class="main">
+            <header class="title">
+                <h1>Quickstart Tutorial</h1>
+                
+                <hr>
+            </header>
+            <p>
+Imagine we're building a utility for joining MP3 files, something like <a href="https://github.com/dmulholl/mp3cat">mp3cat</a>.
+We want the user to supply the file names as a list of command line arguments.
+We also want to support an <code>--out/-o</code> option so the user can specify an output filename and a <code>--quiet/-q</code> flag for turning down the program's verbosity.
+</p>
+<p>
+First we need to create an <code>ArgParser</code> instance:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="kn">import</span> <span class="nn">argslib</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argslib</span><span class="o">.</span><span class="n">ArgParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">helptext</span> <span class="o">=</span> <span class="s2">&quot;Usage: mp3cat...&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+</pre>
+<p>
+Supplying a helptext string for the parser activates an automatic <code>--help/-h</code> flag; similarly, supplying a version string activates an automatic <code>--version/-v</code> flag.
+</p>
+<p>
+Now we can register our options and flags:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">parser</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;out o&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;quiet q&quot;</span><span class="p">)</span>
+</pre>
+<p>
+That's it, we're done specifying our interface. Now we can parse the program's command line arguments:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+</pre>
+<p>
+This will exit with a suitable error message if anything goes wrong. Now we can check if the <code>--quiet</code> flag was found:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="k">if</span> <span class="n">parser</span><span class="o">.</span><span class="n">found</span><span class="p">(</span><span class="s2">&quot;quiet&quot;</span><span class="p">):</span>
+    <span class="n">do_stuff</span><span class="p">()</span>
+</pre>
+<p>
+And determine our output filepath:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="n">filepath</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;out&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;default.mp3&quot;</span>
+</pre>
+<p>
+Positional aguments are collected up in the parser's <code>.args</code> list:
+</p>
+<pre class="lang-python pygments" data-lang="python">
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+    <span class="n">do_stuff</span><span class="p">()</span>
+</pre>
+        </article>
+        
+    </body>
+</html>

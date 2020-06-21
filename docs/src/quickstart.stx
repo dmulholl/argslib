@@ -1,0 +1,46 @@
+---
+title: Quickstart Tutorial
+---
+
+Imagine we're building a utility for joining MP3 files, something like [mp3cat](https://github.com/dmulholl/mp3cat).
+We want the user to supply the file names as a list of command line arguments.
+We also want to support an `--out/-o` option so the user can specify an output filename and a `--quiet/-q` flag for turning down the program's verbosity.
+
+First we need to create an `ArgParser` instance:
+
+::: code python
+    import argslib
+
+    parser = argslib.ArgParser()
+    parser.helptext = "Usage: mp3cat..."
+    parser.version = "1.0"
+
+Supplying a helptext string for the parser activates an automatic `--help/-h` flag; similarly, supplying a version string activates an automatic `--version/-v` flag.
+
+Now we can register our options and flags:
+
+::: code python
+    parser.option("out o")
+    parser.flag("quiet q")
+
+That's it, we're done specifying our interface. Now we can parse the program's command line arguments:
+
+::: code python
+    parser.parse()
+
+This will exit with a suitable error message if anything goes wrong. Now we can check if the `--quiet` flag was found:
+
+::: code python
+    if parser.found("quiet"):
+        do_stuff()
+
+And determine our output filepath:
+
+::: code python
+    filepath = parser.value("out") or "default.mp3"
+
+Positional aguments are collected up in the parser's `.args` list:
+
+::: code python
+    for filename in parser.args:
+        do_stuff()

@@ -1,166 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>API</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="fonts.css">
-    <link rel="stylesheet" href="graphite.css">
-    <link rel="stylesheet" href="pygments.css">
-    
-    
-  </head>
-
-  <body class="node-api node">
-
-    <header class="masthead">
-      <h1><a href="index.html">Janus</a></h1>
-      
-        <p class="tagline">An argument-parsing library for Python.</p>
-      
-      
-      <nav class="menu">
-        <input id="menu-check" type="checkbox"/>
-        <label id="menu-label" for="menu-check" class="unselectable">
-          <span class="icon close-icon">✕</span>
-          <span class="icon open-icon">☰</span>
-          <span class="text">Menu</span>
-        </label>
-        <ul>
+    <head>
+        <meta charset="utf-8">
+        <title>API Reference</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets/fonts.css">
+        <link rel="stylesheet" href="assets/graphite.css">
+        <link rel="stylesheet" href="assets/pygments.css">
+        
+        
+    </head>
+    <body class="node-api node">
+        <header class="masthead">
+            <h1><a href="index.html">Argslib</a></h1>
+            
+            <p class="tagline">A ridiculously simple argument-parsing library for Python.</p>
+            
+            
+            <p class="version">Version 2.0.0</p>
+            
+            <nav class="menu">
+                <input id="menu-check" type="checkbox"/>
+                <label id="menu-label" for="menu-check" class="unselectable">
+                    <span class="icon close-icon">✕</span>
+                    <span class="icon open-icon">☰</span>
+                    <span class="text">Menu</span>
+                </label>
+                <ul>
 <li><a href="index.html">Home</a></li>
+<li><a href="quickstart.html">Quickstart</a></li>
 <li><a href="cli.html">CLI</a></li>
 <li><a href="api.html">API</a></li>
-<li><a href="https://github.com/dmulholl/janus-python">Source</a></li>
+<li><a href="license.html">License</a></li>
+<li><a href="https://github.com/dmulholl/argslib">Github</a></li>
 </ul>
-      </nav>
-    </header>
-
-    <article class="main">
-      <header class="title">
-        <h1>API</h1>
-        
-        <hr>
-      </header>
-      <ul class="stx-toc">
+            </nav>
+        </header>
+        <article class="main">
+            <header class="title">
+                <h1>API Reference</h1>
+                
+                <hr>
+            </header>
+            <ul class="stx-toc">
 <li>
-<a href="#basic-usage">Basic Usage</a>
+<a href="#setup">Setup</a>
 </li>
 <li>
-<a href="#register-options">Register Options</a>
+<a href="#flags-and-options">Flags and Options</a>
 </li>
 <li>
-<a href="#retrieve-option-values">Retrieve Option Values</a>
+<a href="#retrieving-values">Retrieving Values</a>
 </li>
 <li>
-<a href="#retrieve-positional-arguments">Retrieve Positional Arguments</a>
+<a href="#positional-arguments">Positional Arguments</a>
 </li>
 <li>
 <a href="#commands">Commands</a>
 </li>
 </ul>
 <hr>
-<p>
-Install Janus from the Python package index using <code>pip</code>:
-</p>
-<pre>
-$ pip install libjanus
-</pre>
-<p>
-Alternatively, you can incorporate the single, public-domain <code>janus.py</code> file directly into your application. Janus has no external dependencies.
-</p>
-<p>
-Import the Janus module:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">janus</span>
-</pre>
-<p>
-Janus requires Python 3.0 or later.
-</p>
-<h2 id="basic-usage">
-Basic Usage
-</h2>
-<p>
-Initialize an argument parser, optionally specifying the application's help text and version as string arguments:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="n">parser</span> <span class="o">=</span> <span class="n">janus</span><span class="o">.</span><span class="n">ArgParser</span><span class="p">(</span><span class="n">helptext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre>
-<p>
-Supplying help text activates an automatic <code>--help</code> flag; supplying a version string activates an automatic <code>--version</code> flag. (Automatic <code>-h</code> and <code>-v</code> shortcuts are also activated unless registered by other options.)
-</p>
-<p>
-You can now register your application's options and commands on the parser using the registration functions described below. Once the required options and commands have been registered, call the parser's <code>parse()</code> method to process the application's command line arguments:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
-</pre>
-<p>
-Parsed option values can be retrieved from the parser instance itself.
-</p>
-<h2 id="register-options">
-Register Options
-</h2>
-<p>
-Janus supports long-form options, <code>--foo</code>, with single-character shortcuts, <code>-f</code>.
-</p>
-<p>
-An option can have an unlimited number of long and short-form aliases. Aliases are specified via the <code>name</code> parameter which accepts a string of space-separated alternatives, e.g. <code>&quot;foo f&quot;</code>.
-</p>
-<p>
-Option values can be separated on the command line by either a space, <code>--foo 123</code>, or an equals symbol, <code>--foo=123</code>.
-</p>
+<h3 id="setup">
+Setup
+</h3>
 <dl>
 <div>
 <dt>
-<code>.new_flag(name)</code>
+<code>argslib.ArgParser(helptext=None, version=None)</code>
 </dt>
 <dd>
 <p>
-Register a flag (a boolean option) with a default value of <code>False</code>. Flag options take no arguments but are either present (<code>True</code>) or absent (<code>False</code>).
+Initializes a new <code>ArgParser</code> instance. Supplying help text activates an automatic <code>--help</code> flag; supplying a version string activates an automatic <code>--version</code> flag. (Automatic <code>-h</code> and <code>-v</code> shortcuts are also activated unless registered by other options.)
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.new_float(name, fallback=None)</code>
+<code>.parse()</code>
 </dt>
 <dd>
 <p>
-Register a floating-point option, optionally specifying a fallback value.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.new_int(name, fallback=None)</code>
-</dt>
-<dd>
-<p>
-Register an integer option, optionally specifying a fallback value.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.new_str(name, fallback=None)</code>
-</dt>
-<dd>
-<p>
-Register a string option, optionally specifying a fallback value.
+Parses the application's command line arguments.
+Raises <code>ArgsError</code> if any of the arguments are not valid unicode strings.
 </p>
 </dd>
 </div>
 </dl>
-<h2 id="retrieve-option-values">
-Retrieve Option Values
-</h2>
+<h3 id="flags-and-options">
+Flags and Options
+</h3>
+<dl>
+<div>
+<dt>
+<code>.flag(name)</code>
+</dt>
+<dd>
 <p>
-An option's value can be retrieved from the parser instance using any of its registered aliases.
+Registers a new flag. The <code>name</code> parameter accepts an unlimited number of space-separated aliases and single-character shortcuts.
 </p>
+</dd>
+</div>
+<div>
+<dt>
+<code>.option(name, type=str, default=None)</code>
+</dt>
+<dd>
 <p>
-Each option maintains an internal list of values — the value of the option is the final value in the list or the fallback value if the list is empty.
+Registers a new option. The <code>name</code> parameter accepts an unlimited number of space-separated aliases and single-character shortcuts. Options are string-valued by default but the <code>type</code> parameter can be changed to <code>int</code>, <code>float</code>, or any other callable which can parse a string value.
+A default value can be specified which will be used if the option is not found.
 </p>
+</dd>
+</div>
+</dl>
+<h3 id="retrieving-values">
+Retrieving Values
+</h3>
 <dl>
 <div>
 <dt>
@@ -168,7 +122,8 @@ Each option maintains an internal list of values — the value of the option is 
 </dt>
 <dd>
 <p>
-Returns the number of times the specified option was found.
+Returns the number of times the specified flag or option was found.
+Raises <code>ArgsError</code> if <code>name</code> is not a recognised flag or option name.
 </p>
 </dd>
 </div>
@@ -178,174 +133,98 @@ Returns the number of times the specified option was found.
 </dt>
 <dd>
 <p>
-Returns true if the specified option was found while parsing.
+Returns <code>True</code> if the specified flag or option was found, <code>False</code> if not.
+Raises <code>ArgsError</code> if <code>name</code> is not a recognised flag or option name.
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.get(name)</code>
+<code>.value(name)</code>
 </dt>
 <dd>
 <p>
 Returns the value of the specified option.
+Returns the default value if the option was not found.
+Raises <code>ArgsError</code> if <code>name</code> is not a recognised option name.
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.get_list(name)</code>
+<code>.values(name)</code>
 </dt>
 <dd>
 <p>
 Returns the specified option's list of values.
+Raises <code>ArgsError</code> if <code>name</code> is not a recognised option name.
 </p>
 </dd>
 </div>
 </dl>
-<p>
-An option's value can also be retrieved using read-only dictionary syntax:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="n">value</span> <span class="o">=</span> <span class="n">parser</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-</pre>
-<h2 id="retrieve-positional-arguments">
-Retrieve Positional Arguments
-</h2>
-<p>
-Options can be preceded, followed, or interspaced with positional arguments.
-</p>
+<h3 id="positional-arguments">
+Positional Arguments
+</h3>
 <dl>
 <div>
 <dt>
-<code>.get_args()</code>
+<code>.args</code>
 </dt>
 <dd>
 <p>
-Returns the positional arguments as a list of strings.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.get_args_as_floats()</code>
-</dt>
-<dd>
-<p>
-Attempts to parse and return the positional arguments as a list of floats.
-Exits with an error message on failure.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.get_args_as_ints()</code>
-</dt>
-<dd>
-<p>
-Attempts to parse and return the positional arguments as a list of
-integers. Exits with an error message on failure.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.has_args()</code>
-</dt>
-<dd>
-<p>
-Returns true if at least one positional argument has been found.
-</p>
-</dd>
-</div>
-<div>
-<dt>
-<code>.num_args()</code>
-</dt>
-<dd>
-<p>
-Returns the number of positional arguments.
+Stores the positional arguments as a list of strings.
 </p>
 </dd>
 </div>
 </dl>
-<p>
-Positional arguments can also be accessed using read-only list syntax:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="n">value</span> <span class="o">=</span> <span class="n">parser</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</pre>
-<h2 id="commands">
+<h3 id="commands">
 Commands
-</h2>
-<p>
-Janus supports git-style command interfaces with arbitrarily-nested commands. Register a command on a parser instance using the <code>new_cmd()</code> method:
-</p>
-<pre class="lang-python pygments" data-lang="python">
-<span class="n">cmd_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">new_cmd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">helptext</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
-</pre>
-<p>
-This method returns a new <code>ArgParser</code> instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call <code>parse()</code> on a command parser &mdash; if a command is found, its arguments are parsed automatically.)
-</p>
-<ul>
-<li>
-Like options, commands can have an unlimited number of aliases specified via the <code>name</code> string.
-</li>
-<li>
-Commands support an automatic <code>--help</code> flag and an automatic <code>help &lt;name&gt;</code> command using the specified help text.
-</li>
-<li>
-The specified callback function will be called if the command is found. The callback should accept the command's <code>ArgParser</code> instance as its sole argument and should have no return value.
-</li>
-</ul>
-<p>
-The following <code>ArgParser</code> methods are also available for processing commands manually:
-</p>
+</h3>
 <dl>
 <div>
 <dt>
-<code>.get_cmd_name()</code>
+<code>.command(name, helptext=None, callback=None)</code>
 </dt>
 <dd>
 <p>
-Returns the command name, if the parser has found a command; otherwise returns <code>None</code>.
+Registers a new command. The <code>name</code> parameter accepts an unlimited number of space-separated aliases. Returns the command's <code>ArgParser</code> instance which can be used to register the command's flags and options.
+If the command is found, the <code>callback</code> function will be called with the command's name and <code>ArgParser</code> instance as arguments.
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.get_cmd_parser()</code>
+<code>.command_name</code>
 </dt>
 <dd>
 <p>
-Returns the command parser instance, if the parser has found a command; otherwise returns <code>None</code>.
+Stores the command name if a command was found, otherwise <code>None</code>.
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.get_parent()</code>
+<code>.command_parser</code>
 </dt>
 <dd>
 <p>
-Returns a command parser's parent parser.
+Stores the command parser if a command was found, otherwise <code>None</code>.
 </p>
 </dd>
 </div>
 <div>
 <dt>
-<code>.has_cmd()</code>
+<code>.help_command</code>
 </dt>
 <dd>
 <p>
-Returns true if the parser has found a command.
+Boolean switch; activates support for an automatic <code>help</code> command which prints subcommand helptext.
+(Defaults to <code>False</code> but gets toggled to <code>True</code> whenever a command is registered.)
 </p>
 </dd>
 </div>
 </dl>
-    </article>
-
-    
-
-  </body>
+        </article>
+        
+    </body>
 </html>

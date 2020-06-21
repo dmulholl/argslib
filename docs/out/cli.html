@@ -1,81 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Command Line Interface</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="fonts.css">
-    <link rel="stylesheet" href="graphite.css">
-    <link rel="stylesheet" href="pygments.css">
-    
-    
-  </head>
-
-  <body class="node-cli node">
-
-    <header class="masthead">
-      <h1><a href="index.html">Janus</a></h1>
-      
-        <p class="tagline">An argument-parsing library for Python.</p>
-      
-      
-      <nav class="menu">
-        <input id="menu-check" type="checkbox"/>
-        <label id="menu-label" for="menu-check" class="unselectable">
-          <span class="icon close-icon">✕</span>
-          <span class="icon open-icon">☰</span>
-          <span class="text">Menu</span>
-        </label>
-        <ul>
+    <head>
+        <meta charset="utf-8">
+        <title>Command Line Interface</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets/fonts.css">
+        <link rel="stylesheet" href="assets/graphite.css">
+        <link rel="stylesheet" href="assets/pygments.css">
+        
+        
+    </head>
+    <body class="node-cli node">
+        <header class="masthead">
+            <h1><a href="index.html">Argslib</a></h1>
+            
+            <p class="tagline">A ridiculously simple argument-parsing library for Python.</p>
+            
+            
+            <p class="version">Version 2.0.0</p>
+            
+            <nav class="menu">
+                <input id="menu-check" type="checkbox"/>
+                <label id="menu-label" for="menu-check" class="unselectable">
+                    <span class="icon close-icon">✕</span>
+                    <span class="icon open-icon">☰</span>
+                    <span class="text">Menu</span>
+                </label>
+                <ul>
 <li><a href="index.html">Home</a></li>
+<li><a href="quickstart.html">Quickstart</a></li>
 <li><a href="cli.html">CLI</a></li>
 <li><a href="api.html">API</a></li>
-<li><a href="https://github.com/dmulholl/janus-python">Source</a></li>
+<li><a href="license.html">License</a></li>
+<li><a href="https://github.com/dmulholl/argslib">Github</a></li>
 </ul>
-      </nav>
-    </header>
-
-    <article class="main">
-      <header class="title">
-        <h1>Command Line Interface</h1>
-        
-        <hr>
-      </header>
-      <h3 id="options">
+            </nav>
+        </header>
+        <article class="main">
+            <header class="title">
+                <h1>Command Line Interface</h1>
+                
+                <hr>
+            </header>
+            <ul class="stx-toc">
+<li>
+<a href="#options">Options</a>
+</li>
+<li>
+<a href="#multivalued-options">Multivalued Options</a>
+</li>
+<li>
+<a href="#flags">Flags</a>
+</li>
+<li>
+<a href="#positional-arguments">Positional Arguments</a>
+</li>
+<li>
+<a href="#commands">Commands</a>
+</li>
+<li>
+<a href="#non-unicode-arguments">Non-Unicode Arguments</a>
+</li>
+<li>
+<a href="#negative-numbers">Negative Numbers</a>
+</li>
+</ul>
+<hr>
+<h3 id="options">
 Options
 </h3>
 <p>
-Janus supports four kinds of options: boolean, string, integer, and floating-point.
-</p>
-<ul>
-<li>
-<p>
-Boolean options take no arguments but are either present (<i>true</i>) or absent (<i>false</i>).
-</p>
-</li>
-<li>
-<p>
-String, integer, and floating-point options require arguments of the appropriate type.
-</p>
-</li>
-</ul>
-<p>
-An option can have an unlimited number of long-form aliases and single-character shortcuts: <code>--option</code>, <code>-o</code>.
+Options can have an unlimited number of long-form aliases and single-character shortcuts: <code>--option</code>, <code>-o</code>.
 </p>
 <p>
+Options can have string, integer, or floating-point values.
 Option values can be separated by either a space, <code>--opt 123</code>, or an equals symbol, <code>--opt=123</code>. Either syntax can be used with shortcuts: <code>-o 123</code>, <code>-o=123</code>.
 </p>
 <p>
 Multiple shortcuts can be condensed into a single block, e.g. <code>-abc foo bar</code>. Trailing arguments are consumed in sequence as required by the options.
 </p>
-<p>
-Options are registered with fallback values which are used if the option is not found. If an option is found multiple times its value is the final value encountered &mdash; i.e. the value of <code>-o 123 -o 456</code> is <code>456</code>.
-</p>
 <h3 id="multivalued-options">
 Multivalued Options
 </h3>
 <p>
-Options can be treated as singular or multivalued as circumstances require. Each option maintains an internal list to which newly parsed values are appended; the (singular) value of the option is the final value in the list, or the fallback value if the list is empty.
+Options can be treated as singular or multivalued as circumstances require. Each option maintains an internal list to which newly parsed values are appended; the (singular) value of the option is the final value in the list or the default value if the list is empty.
 </p>
 <p>
 For example, in the command below:
@@ -86,20 +94,26 @@ $ myapp --foo 123 --foo 456
 <p>
 the value of the option <code>foo</code> is <code>456</code> but the list <code>[123, 456]</code> is also available for use if required.
 </p>
+<h3 id="flags">
+Flags
+</h3>
+<p>
+Flags are valueless options — they're either present or absent, but take no arguments. Like options, flags can have an unlimited number of long-form aliases and single-character shortcuts: <code>--flag</code>, <code>-f</code>.
+</p>
 <h3 id="positional-arguments">
 Positional Arguments
 </h3>
 <p>
-Options can be preceded, followed, or interspaced with positional arguments. Janus assembles all positional arguments together into a single, undifferentiated list of strings. Convenience functions are supplied for parsing these strings as integers or doubles.
+Options and flags can be preceded by, followed by, or interspaced with positional arguments.
 </p>
 <p>
-Janus supports the standard <code>--</code> switch for turning off option-parsing. All arguments following a <code>--</code> will be treated as positional arguments, even if they begin with a single or double dash.
+Argslib supports the standard <code>--</code> switch for turning off option-parsing. All arguments following a <code>--</code> will be treated as positional arguments, even if they begin with a single or double dash.
 </p>
 <h3 id="commands">
 Commands
 </h3>
 <p>
-Janus supports git-style command interfaces with arbitrarily-nested commands. Commands have builtin support for an automatic <code>--help</code> flag and an automatic <code>help &lt;cmd&gt;</code> command, i.e. the commands
+Argslib supports git-style command interfaces with arbitrarily-nested commands. Commands have builtin support for an automatic <code>--help</code> flag and an automatic <code>help &lt;cmd&gt;</code> command, i.e. the commands
 </p>
 <pre>
 $ myapp &lt;cmd&gt; --help
@@ -113,9 +127,19 @@ $ myapp help &lt;cmd&gt;
 <p>
 are functionally identical and will both print the help text registered with the command.
 </p>
-    </article>
-
-    
-
-  </body>
+<h3 id="non-unicode-arguments">
+Non-Unicode Arguments
+</h3>
+<p>
+To keep its API simple, this library only works with command line arguments which are valid unicode strings. If the parser finds an argument which is not a valid unicode string the <code>.parse()</code> method will raise an <code>ArgsError</code> exception.
+</p>
+<h3 id="negative-numbers">
+Negative Numbers
+</h3>
+<p>
+Some argument-parsing libraries struggle with negative numbers &mdash; for example, they will try to parse <code>-3</code> as a flag or option named <code>3</code>. This library always treats arguments beginning with a dash and a digit as positional arguments or option values, never as flag or option names.
+</p>
+        </article>
+        
+    </body>
 </html>

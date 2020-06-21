@@ -1,187 +1,91 @@
 ---
-title: API
+title: API Reference
 ---
 
 ::: insert toc
-
 ::: hr
 
-Install Janus from the Python package index using `pip`:
 
-    $ pip install libjanus
-
-Alternatively, you can incorporate the single, public-domain `janus.py` file directly into your application. Janus has no external dependencies.
-
-Import the Janus module:
-
-::: code python
-
-    >>> import janus
-
-Janus requires Python 3.0 or later.
+### Setup
 
 
+[[ `argslib.ArgParser(helptext=None, version=None)` ]]
 
-## Basic Usage
+    Initializes a new `ArgParser` instance. Supplying help text activates an automatic `--help` flag; supplying a version string activates an automatic `--version` flag. (Automatic `-h` and `-v` shortcuts are also activated unless registered by other options.)
 
-Initialize an argument parser, optionally specifying the application's help text and version as string arguments:
+[[ `.parse()` ]]
 
-::: code python
-
-    parser = janus.ArgParser(helptext=None, version=None)
-
-Supplying help text activates an automatic `--help` flag; supplying a version string activates an automatic `--version` flag. (Automatic `-h` and `-v` shortcuts are also activated unless registered by other options.)
-
-You can now register your application's options and commands on the parser using the registration functions described below. Once the required options and commands have been registered, call the parser's `parse()` method to process the application's command line arguments:
-
-::: code python
-
-    parser.parse()
-
-Parsed option values can be retrieved from the parser instance itself.
+    Parses the application's command line arguments.
+    Raises `ArgsError` if any of the arguments are not valid unicode strings.
 
 
 
-## Register Options
+### Flags and Options
 
-Janus supports long-form options, `--foo`, with single-character shortcuts, `-f`.
+[[ `.flag(name)` ]]
 
-An option can have an unlimited number of long and short-form aliases. Aliases are specified via the `name` parameter which accepts a string of space-separated alternatives, e.g. `"foo f"`.
+    Registers a new flag. The `name` parameter accepts an unlimited number of space-separated aliases and single-character shortcuts.
 
-Option values can be separated on the command line by either a space, `--foo 123`, or an equals symbol, `--foo=123`.
+[[ `.option(name, type=str, default=None)` ]]
 
-
-[[  `.new_flag(name)`  ]]
-
-    Register a flag (a boolean option) with a default value of `False`. Flag options take no arguments but are either present (`True`) or absent (`False`).
-
-
-[[  `.new_float(name, fallback=None)`  ]]
-
-    Register a floating-point option, optionally specifying a fallback value.
-
-
-[[  `.new_int(name, fallback=None)`  ]]
-
-    Register an integer option, optionally specifying a fallback value.
-
-
-[[  `.new_str(name, fallback=None)`  ]]
-
-    Register a string option, optionally specifying a fallback value.
+    Registers a new option. The `name` parameter accepts an unlimited number of space-separated aliases and single-character shortcuts. Options are string-valued by default but the `type` parameter can be changed to `int`, `float`, or any other callable which can parse a string value.
+    A default value can be specified which will be used if the option is not found.
 
 
 
-## Retrieve Option Values
-
-An option's value can be retrieved from the parser instance using any of its registered aliases.
-
-Each option maintains an internal list of values — the value of the option is the final value in the list or the fallback value if the list is empty.
-
+### Retrieving Values
 
 [[  `.count(name)`  ]]
 
-    Returns the number of times the specified option was found.
+    Returns the number of times the specified flag or option was found.
+    Raises `ArgsError` if `name` is not a recognised flag or option name.
 
 
 [[  `.found(name)`  ]]
 
-    Returns true if the specified option was found while parsing.
+    Returns `True` if the specified flag or option was found, `False` if not.
+    Raises `ArgsError` if `name` is not a recognised flag or option name.
 
 
-[[  `.get(name)`  ]]
+[[  `.value(name)`  ]]
 
     Returns the value of the specified option.
+    Returns the default value if the option was not found.
+    Raises `ArgsError` if `name` is not a recognised option name.
 
 
-[[  `.get_list(name)`  ]]
+[[  `.values(name)`  ]]
 
     Returns the specified option's list of values.
-
-
-An option's value can also be retrieved using read-only dictionary syntax:
-
-::: code python
-
-    value = parser["name"]
+    Raises `ArgsError` if `name` is not a recognised option name.
 
 
 
-## Retrieve Positional Arguments
+### Positional Arguments
 
+[[ `.args` ]]
 
-Options can be preceded, followed, or interspaced with positional arguments.
-
-
-[[  `.get_args()`  ]]
-
-    Returns the positional arguments as a list of strings.
-
-
-[[  `.get_args_as_floats()`  ]]
-
-    Attempts to parse and return the positional arguments as a list of floats.
-    Exits with an error message on failure.
-
-
-[[  `.get_args_as_ints()`  ]]
-
-    Attempts to parse and return the positional arguments as a list of
-    integers. Exits with an error message on failure.
-
-
-[[  `.has_args()`  ]]
-
-    Returns true if at least one positional argument has been found.
-
-
-[[  `.num_args()`  ]]
-
-    Returns the number of positional arguments.
-
-
-Positional arguments can also be accessed using read-only list syntax:
-
-::: code python
-
-    value = parser[index]
+    Stores the positional arguments as a list of strings.
 
 
 
-## Commands
+### Commands
 
-Janus supports git-style command interfaces with arbitrarily-nested commands. Register a command on a parser instance using the `new_cmd()` method:
+[[ `.command(name, helptext=None, callback=None)` ]]
 
-::: code python
+    Registers a new command. The `name` parameter accepts an unlimited number of space-separated aliases. Returns the command's `ArgParser` instance which can be used to register the command's flags and options.
+    If the command is found, the `callback` function will be called with the command's name and `ArgParser` instance as arguments.
 
-    cmd_parser = parser.new_cmd(name, helptext, callback)
+[[ `.command_name` ]]
 
-This method returns a new `ArgParser` instance associated with the command. You can register the command's flags and options on this sub-parser using the standard methods listed above. (Note that you never need to call `parse()` on a command parser --- if a command is found, its arguments are parsed automatically.)
+    Stores the command name if a command was found, otherwise `None`.
 
-* Like options, commands can have an unlimited number of aliases specified via the `name` string.
+[[ `.command_parser` ]]
 
-* Commands support an automatic `--help` flag and an automatic `help <name>` command using the specified help text.
+    Stores the command parser if a command was found, otherwise `None`.
 
-* The specified callback function will be called if the command is found. The callback should accept the command's `ArgParser` instance as its sole argument and should have no return value.
+[[ `.help_command` ]]
 
-The following `ArgParser` methods are also available for processing commands manually:
+    Boolean switch; activates support for an automatic `help` command which prints subcommand helptext.
+    (Defaults to `False` but gets toggled to `True` whenever a command is registered.)
 
-
-[[  `.get_cmd_name()`  ]]
-
-    Returns the command name, if the parser has found a command; otherwise returns `None`.
-
-
-[[  `.get_cmd_parser()`  ]]
-
-    Returns the command parser instance, if the parser has found a command; otherwise returns `None`.
-
-
-[[  `.get_parent()`  ]]
-
-    Returns a command parser's parent parser.
-
-
-[[  `.has_cmd()`  ]]
-
-    Returns true if the parser has found a command.

@@ -1,42 +1,20 @@
 #!/usr/bin/env python3
 """
-Janus
-=====
+Argslib
+=======
 
-Janus is a minimalist argument-parsing library designed for building elegant command-line interfaces.
-
-Install::
-
-    $ pip install libjanus
-
-Import::
-
-    >>> import janus
-
-See the project's `documentation <http://www.dmulholl.com/docs/janus/>`_
-for further details.
+A minimalist library for parsing command line arguments.
 
 """
 
-import os
-import re
-import io
-
 from setuptools import setup
 
-
-filepath = os.path.join(os.path.dirname(__file__), 'janus.py')
-with io.open(filepath, encoding='utf-8') as metafile:
-    regex = r'''^__([a-z]+)__ = ["'](.*)["']'''
-    meta = dict(re.findall(regex, metafile.read(), flags=re.MULTILINE))
-
-
 setup(
-    name = 'libjanus',
-    version = meta['version'],
-    py_modules = ['janus'],
+    name = 'argslib',
+    version = '2.0.0',
+    py_modules = ['argslib'],
     author = 'Darren Mulholland',
-    url = 'https://github.com/dmulholl/janus',
+    url = 'https://github.com/dmulholl/argslib',
     license = 'Public Domain',
     description = (
         'A minimalist argument-parsing library.'
