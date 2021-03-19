@@ -1,6 +1,6 @@
-# ------------------------------------------------------------------------------
-# Argslib: a library for parsing command-line arguments.
-# ------------------------------------------------------------------------------
+# ------------------------------------------------------ #
+# Argslib: a library for parsing command-line arguments. #
+# ------------------------------------------------------ #
 
 __version__ = "2.0.1"
 
@@ -58,9 +58,9 @@ class ArgParser:
         # If true, activates the 'help' commmand.
         self.help_command = False
 
-    # ------------------------------------------------------
-    # Setup methods.
-    # ------------------------------------------------------
+    # -------------- #
+    # Setup methods. #
+    # -------------- #
 
     # Register a new flag.
     def flag(self, name):
@@ -83,9 +83,9 @@ class ArgParser:
             self.commands[alias] = cmd_parser
         return cmd_parser
 
-    # ------------------------------------------------------
-    # Inspection methods.
-    # ------------------------------------------------------
+    # ------------------- #
+    # Inspection methods. #
+    # ------------------- #
 
     # Returns the number of times the specified flag or option has been found.
     def count(self, name):
@@ -114,9 +114,9 @@ class ArgParser:
         else:
             raise InvalidName(f"'{name}' is not a recognised option name")
 
-    # ------------------------------------------------------
-    # Parsing machinery.
-    # ------------------------------------------------------
+    # ------------------ #
+    # Parsing machinery. #
+    # ------------------ #
 
     # Parse a list of string arguments.
     def parse(self, args=None):
@@ -220,9 +220,9 @@ class ArgParser:
             else:
                 self.exit_error(f"-{arg} is not a recognised flag or option name")
 
-    # ------------------------------------------------------
-    # Utility methods.
-    # ------------------------------------------------------
+    # ---------------- #
+    # Utility methods. #
+    # ---------------- #
 
     # Print the parser's state for debugging.
     def __str__(self):
@@ -272,9 +272,9 @@ class ArgParser:
                 raise InvalidUnicode("argument is not a valid unicode string") from err
         return args_as_strs
 
-    # ------------------------------------------------------
-    # Exit helpers.
-    # ------------------------------------------------------
+    # ------------- #
+    # Exit helpers. #
+    # ------------- #
 
     # Print the parser's help text and exit.
     def exit_help(self):
