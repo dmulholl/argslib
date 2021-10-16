@@ -1,6 +1,6 @@
 ---
 title: Home
-meta title: Argslib &mdash; an argument-parsing library for Python
+meta title: Argslib &mdash; a ridiculously simple argument-parsing library for Python
 ---
 
 Argslib is a minimalist Python library for parsing command line arguments.
