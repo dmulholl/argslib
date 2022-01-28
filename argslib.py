@@ -2,7 +2,7 @@
 # Argslib: a library for parsing command-line arguments. #
 # ------------------------------------------------------ #
 
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 
 import os
 import sys
@@ -55,7 +55,10 @@ class ArgParser:
         # Stores a command parser's callback function.
         self.callback = None
 
-        # If true, activates the 'help' commmand.
+        # Toggles support for an automatic 'help' command that prints subcommand helptext.
+        self.enable_help_command = False
+
+        # Deprecated.
         self.help_command = False
 
     # -------------- #
@@ -77,6 +80,7 @@ class ArgParser:
     # Register a new command.
     def command(self, name, helptext=None, callback=None):
         self.help_command = True
+        self.enable_help_command = True
         cmd_parser = ArgParser(helptext)
         cmd_parser.callback = callback
         for alias in name.split():
@@ -125,6 +129,7 @@ class ArgParser:
 
     # Parse a stream of string arguments.
     def _parse_stream(self, stream):
+        enable_help_command = self.enable_help_command or self.help_command
         is_first_arg = True
 
         while stream.has_next():
@@ -155,7 +160,7 @@ class ArgParser:
                 if self.command_parser.callback:
                     self.command_parser.callback(arg, self.command_parser)
 
-            elif is_first_arg and self.help_command and arg == "help":
+            elif is_first_arg and enable_help_command and arg == "help":
                 if stream.has_next():
                     name = stream.next()
                     if name in self.commands:
