@@ -17,7 +17,7 @@
                 <p class="tagline">A ridiculously simple argument-parsing library for Python.</p>
             
             
-                <p class="version">Version 2.0.0</p>
+                <p class="version">Version 2.1.0</p>
             
             <nav class="menu">
                 <input id="menu-check" type="checkbox"/>
@@ -214,12 +214,11 @@ Stores the command parser if a command was found, otherwise <code>None</code>.
 </div>
 <div>
 <dt>
-<code>.help_command</code>
+<code>.enable_help_command</code>
 </dt>
 <dd>
 <p>
-Boolean switch; activates support for an automatic <code>help</code> command which prints subcommand helptext.
-(Defaults to <code>False</code> but gets toggled to <code>True</code> whenever a command is registered.)
+This boolean switch toggles support for an automatic <code>help</code> command that prints subcommand helptext. The value defaults to <code>false</code> but gets toggled automatically to <code>true</code> whenever a command is registered. You can use this switch to disable the feature if required.
 </p>
 </dd>
 </div>

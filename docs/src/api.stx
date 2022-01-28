@@ -84,8 +84,6 @@ title: API Reference
 
     Stores the command parser if a command was found, otherwise `None`.
 
-[[ `.help_command` ]]
+[[ `.enable_help_command` ]]
 
-    Boolean switch; activates support for an automatic `help` command which prints subcommand helptext.
-    (Defaults to `False` but gets toggled to `True` whenever a command is registered.)
-
+    This boolean switch toggles support for an automatic `help` command that prints subcommand helptext. The value defaults to `false` but gets toggled automatically to `true` whenever a command is registered. You can use this switch to disable the feature if required.
