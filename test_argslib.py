@@ -228,7 +228,7 @@ def test_positional_args_empty():
     assert len(parser.args) == 0
 
 
-def test_positional_argslib():
+def test_positional_args():
     parser = argslib.ArgParser()
     parser.flag("foo")
     parser.option("bar")
